@@ -24,8 +24,8 @@ type DefaultTranscoder struct {
 func (t DefaultTranscoder) Decode(bytes []byte, flags uint32, out interface{}) error {
 	// Check for legacy flags
 	if flags&cfMask == 0 {
-		// Legacy Flags
-		if flags == lfJson {
+		// Legacy Flags, 2 used erlang cberl driver
+		if flags == lfJson || flags == 2 {
 			// Legacy JSON
 			flags = cfFmtJson
 		} else {
