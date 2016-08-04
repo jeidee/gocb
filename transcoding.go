@@ -2,6 +2,7 @@ package gocb
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // Transcoder provides an interface for transforming Go values to and
@@ -28,7 +29,8 @@ func (t DefaultTranscoder) Decode(bytes []byte, flags uint32, out interface{}) e
 			// Legacy JSON
 			flags = cfFmtJson
 		} else {
-			return clientError{"Unexpected legacy flags value"}
+			errMsg := fmt.Sprintf("Unexpected legacy flags value %d", flags)
+			return clientError{errMsg}
 		}
 	}
 
@@ -67,6 +69,7 @@ func (t DefaultTranscoder) Decode(bytes []byte, flags uint32, out interface{}) e
 		}
 		return nil
 	}
+	
 	return clientError{"Unexpected flags value"}
 }
 
